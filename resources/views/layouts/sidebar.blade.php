@@ -48,7 +48,7 @@
             <a href="{{ Route('pegawai.index') }}" class="nav-link">
               <i class="nav-icon far fa-file"></i>
               <p>
-                Pegawai
+                Anggota
               </p>
             </a>
           </li>

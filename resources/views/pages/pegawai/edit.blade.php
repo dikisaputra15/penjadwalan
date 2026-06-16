@@ -7,7 +7,7 @@
 <x-alert></x-alert>
 <div class="card">
     <div class="card-header bg-white">
-        <h3>Form Edit Pegawai</h3>
+        <h3>Form Edit Anggota</h3>
     </div>
     <div class="card-body">
     <form action="{{ route('pegawai.update', $pegawai->id) }}" method="POST">
@@ -55,7 +55,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Nama Pegawai</label>
+                    <label>Nama Anggota</label>
                     <input type="text" class="form-control" name="nama" value="{{ $pegawai->nama }}">
                 </div>
 

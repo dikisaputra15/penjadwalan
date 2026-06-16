@@ -7,7 +7,7 @@
 <x-alert></x-alert>
 <div class="card">
     <div class="card-header bg-white">
-        <h3>Data Pegawai</h3>
+        <h3>Data Anggota</h3>
     </div>
     <div class="card-body">
 
@@ -20,7 +20,7 @@
                         <th>No</th>
                         <th>User</th>
                         <th>Wilayah</th>
-                        <th>Nama Pegawai</th>
+                        <th>Nama Anggota</th>
                         <th>NIP</th>
                         <th>Jabatan</th>
                         <th>Action</th>
