@@ -42,15 +42,11 @@
                         </label>
                         <label class="selectgroup-item">
                             <input type="radio" name="roles" value="peternak" class="radio">
-                            Peternak
-                        </label>
-                        <label class="selectgroup-item">
-                            <input type="radio" name="roles" value="staff" class="radio">
-                            Staff Bagian Bencana
+                            Kepala Cabang
                         </label>
                         <label class="selectgroup-item">
                             <input type="radio" name="roles" value="kepala" class="radio">
-                            Kepala Bagian
+                            Kepala Wilayah
                         </label>
                     </div>
                 </div>
