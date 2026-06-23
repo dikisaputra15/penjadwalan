@@ -88,7 +88,7 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-sm-8 padding_0">
-              <div class="banner_img"><img src="https://pandeglangkab.go.id/images/pandeglang.jpg"></div>
+              <div class="banner_img"><img src="{{asset('Growing')}}/images/dpc-pkb.jpeg" style="width:800px; height:450px;"></div>
             </div>
             <div class="col-sm-4">
               <h1 class="clever_text">Selamat Datang</h1>
