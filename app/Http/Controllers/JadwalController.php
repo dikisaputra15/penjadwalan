@@ -10,14 +10,37 @@ use Illuminate\Support\Facades\DB;
 
 class JadwalController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $action = $request->route()->getActionMethod();
+            if (auth()->check() && in_array(auth()->user()->roles, ['pegawai', 'kepala'])) {
+                if (in_array($action, ['create', 'store', 'edit', 'update', 'destroy'])) {
+                    abort(403, 'Unauthorized action.');
+                }
+            }
+            return $next($request);
+        });
+    }
+
      public function index(Request $request)
     {
-      $jadwals = DB::table('jadwals')
+      $query = DB::table('jadwals')
             ->join('pegawais', 'pegawais.id', '=', 'jadwals.pegawai_id')
             ->join('kegiatans', 'kegiatans.id', '=', 'jadwals.kegiatan_id')
             ->select('jadwals.*', 'pegawais.nama', 'kegiatans.nama_kegiatan')
-            ->orderBy('jadwals.id', 'desc')
-            ->get();
+            ->orderBy('jadwals.id', 'desc');
+
+        if (auth()->user()->roles === 'pegawai') {
+            $pegawai = auth()->user()->pegawai;
+            if ($pegawai) {
+                $query->where('jadwals.pegawai_id', $pegawai->id);
+            } else {
+                $query->whereRaw('1 = 0');
+            }
+        }
+
+        $jadwals = $query->get();
         return view('pages.jadwal.index', compact('jadwals'));
     }
 

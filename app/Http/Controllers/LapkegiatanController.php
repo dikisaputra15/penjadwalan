@@ -11,6 +11,19 @@ use Illuminate\Support\Facades\Storage;
 
 class LapkegiatanController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $action = $request->route()->getActionMethod();
+            if (auth()->check() && auth()->user()->roles === 'kepala') {
+                if (in_array($action, ['create', 'store', 'edit', 'update', 'destroy'])) {
+                    abort(403, 'Unauthorized action.');
+                }
+            }
+            return $next($request);
+        });
+    }
+
     public function index(Request $request)
     {
         $laps = DB::table('laporan_kegiatans')
@@ -112,5 +125,18 @@ class LapkegiatanController extends Controller
 
         return redirect()->route('lapkegiatan.index')->with('success', 'Produk successfully updated');
 
+    }
+
+    public function setujui($id)
+    {
+        if (auth()->check() && auth()->user()->roles !== 'kepala') {
+            abort(403, 'Unauthorized action.');
+        }
+
+        DB::table('laporan_kegiatans')->where('id', $id)->update([
+            'status' => 'disetujui'
+        ]);
+
+        return redirect()->route('lapkegiatan.index')->with('alert-primary', 'Laporan berhasil disetujui');
     }
 }

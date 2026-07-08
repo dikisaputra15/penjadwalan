@@ -11,16 +11,20 @@
     </div>
     <div class="card-body">
 
+    @if(auth()->check() && auth()->user()->roles !== 'pegawai')
     <div class="form-group">
         <a href="{{route('kegiatan.create')}}" class="btn btn-primary">Add New</a>
     </div>
+    @endif
     <table id="example" class="table table-bordered table-striped">
                   <thead>
                   <tr>
                         <th>No</th>
                         <th>Nama Kegiatan</th>
                         <th>Warna</th>
+                        @if(auth()->check() && auth()->user()->roles !== 'pegawai')
                         <th>Action</th>
+                        @endif
                   </tr>
                   </thead>
                   <tbody>
@@ -33,6 +37,7 @@
                                 {{ $kegiatan->warna }}
                             </span>
                         </td>
+                        @if(auth()->check() && auth()->user()->roles !== 'pegawai')
                         <td>
                             <div class="d-flex justify-content-center">
 
@@ -53,6 +58,7 @@
                                 </form>
                             </div>
                         </td>
+                        @endif
                     </tr>
                 @endforeach
                   </tbody>

@@ -1,9 +1,12 @@
 <!-- Preloader -->
 <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="{{asset('AdminLTE')}}/dist/img/AdminLTELogo.png" height="60" width="60">
+    <div class="animation__shake text-center text-pkb">
+        <i class="fas fa-globe fa-3x mb-2"></i>
+        <h2 class="font-weight-bold">SI PKB</h2>
+    </div>
 </div>
  <!-- Navbar -->
- <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+ <nav class="main-header navbar navbar-expand bg-pkb-primary navbar-dark shadow-sm">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">

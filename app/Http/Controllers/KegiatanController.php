@@ -7,6 +7,19 @@ use App\Models\Kegiatan;
 
 class KegiatanController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $action = $request->route()->getActionMethod();
+            if (auth()->check() && in_array(auth()->user()->roles, ['pegawai', 'kepala'])) {
+                if (in_array($action, ['create', 'store', 'edit', 'update', 'destroy'])) {
+                    abort(403, 'Unauthorized action.');
+                }
+            }
+            return $next($request);
+        });
+    }
+
     public function index()
     {
         $kegiatans = Kegiatan::latest()->get();

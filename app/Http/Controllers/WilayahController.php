@@ -8,6 +8,16 @@ use Illuminate\Support\Facades\DB;
 
 class WilayahController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            if (auth()->check() && in_array(auth()->user()->roles, ['pegawai', 'kepala'])) {
+                abort(403, 'Unauthorized action.');
+            }
+            return $next($request);
+        });
+    }
+
     public function index(Request $request)
     {
         $wilayahs = DB::table('wilayahs')->orderBy('id', 'desc')->get();

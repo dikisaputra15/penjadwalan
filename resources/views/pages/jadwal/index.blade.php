@@ -11,9 +11,11 @@
     </div>
     <div class="card-body">
 
+    @if(auth()->check() && auth()->user()->roles !== 'pegawai')
     <div class="form-group">
         <a href="{{route('jadwal.create')}}" class="btn btn-primary">Add New</a>
     </div>
+    @endif
     <table id="example" class="table table-bordered table-striped">
                   <thead>
                   <tr>
@@ -23,7 +25,9 @@
                         <th>Tanggal</th>
                         <th>Lokasi</th>
                         <th>Keterangan</th>
+                        @if(auth()->check() && auth()->user()->roles !== 'pegawai')
                         <th>Action</th>
+                        @endif
                   </tr>
                   </thead>
                   <tbody>
@@ -35,6 +39,7 @@
                         <td>{{$jadwal->tanggal}}</td>
                         <td>{{$jadwal->lokasi}}</td>
                         <td>{{$jadwal->keterangan}}</td>
+                        @if(auth()->check() && auth()->user()->roles !== 'pegawai')
                         <td>
                             <div class="d-flex justify-content-center">
 
@@ -55,6 +60,7 @@
                                 </form>
                             </div>
                         </td>
+                        @endif
                     </tr>
                 @endforeach
                   </tbody>

@@ -11,9 +11,11 @@
     </div>
     <div class="card-body">
 
+    @if(auth()->check() && auth()->user()->roles !== 'kepala')
     <div class="form-group">
         <a href="{{route('lapkegiatan.create')}}" class="btn btn-primary">Add New</a>
     </div>
+    @endif
     <table id="example" class="table table-bordered table-striped">
                   <thead>
                   <tr>
@@ -41,6 +43,18 @@
                         <td>{{$lap->latitude}}</td>
                         <td>{{$lap->longitude}}</td>
                         <td>{{$lap->status}}</td>
+                        @if(auth()->check() && auth()->user()->roles === 'kepala')
+                        <td>
+                            @if($lap->status !== 'disetujui')
+                            <form action="{{ route('lapkegiatan.setujui', $lap->id) }}" method="POST">
+                                @csrf
+                                <button class="btn btn-sm btn-success">Setujui</button>
+                            </form>
+                            @else
+                            <span class="badge badge-success">Disetujui</span>
+                            @endif
+                        </td>
+                        @else
                         <td>
                             <div class="d-flex justify-content-center">
 
@@ -61,6 +75,7 @@
                                 </form>
                             </div>
                         </td>
+                        @endif
                     </tr>
                 @endforeach
                   </tbody>

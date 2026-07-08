@@ -49,6 +49,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('pegawai', PegawaiController::class);
     Route::resource('kegiatan', KegiatanController::class);
     Route::resource('jadwal', JadwalController::class);
+    Route::post('lapkegiatan/setujui/{id}', [App\Http\Controllers\LapkegiatanController::class, 'setujui'])->name('lapkegiatan.setujui');
     Route::resource('lapkegiatan', LapkegiatanController::class);
 
     Route::get('/periksakesehatan/{id}/lihat', [App\Http\Controllers\PeriksakesehatanController::class, 'lihat']);
