@@ -33,6 +33,7 @@ class PegawaiController extends Controller
         Pegawai::create([
             'user_id' => $request->user_id,
             'wilayah_id' => $request->wilayah_id,
+            'nama' => $request->nama,
             'nip' => $request->nip,
             'jabatan' => $request->jabatan
         ]);
@@ -59,6 +60,7 @@ class PegawaiController extends Controller
         DB::table('pegawais')->where('id',$id)->update([
                 'user_id' => $request->user_id,
                 'wilayah_id' => $request->wilayah_id,
+                'nama' => $request->nama,
                 'nip' => $request->nip,
                 'jabatan' => $request->jabatan
             ]);
