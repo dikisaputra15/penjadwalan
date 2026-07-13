@@ -42,14 +42,14 @@
                             Admin
                         </label>
                         <label class="selectgroup-item">
-                            <input type="radio" name="roles" value="kepala cabang" class="radio"
-                            @if ($user->roles == 'kepala cabang') checked @endif>
-                            Kepala Cabang
+                            <input type="radio" name="roles" value="pegawai" class="radio"
+                            @if ($user->roles == 'pegawai') checked @endif>
+                            Pegawai
                         </label>
                         <label class="selectgroup-item">
-                            <input type="radio" name="roles" value="kepala wilayah" class="radio"
-                            @if ($user->roles == 'kepala wilayah') checked @endif>
-                            Kepala Wilayah
+                            <input type="radio" name="roles" value="kepala" class="radio"
+                            @if ($user->roles == 'kepala') checked @endif>
+                            Kepala
                         </label>
                     </div>
                 </div>

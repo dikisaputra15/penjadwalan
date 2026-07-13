@@ -41,12 +41,12 @@
                             Admin
                         </label>
                         <label class="selectgroup-item">
-                            <input type="radio" name="roles" value="peternak" class="radio">
-                            Kepala Cabang
+                            <input type="radio" name="roles" value="pegawai" class="radio">
+                            Pegawai
                         </label>
                         <label class="selectgroup-item">
                             <input type="radio" name="roles" value="kepala" class="radio">
-                            Kepala Wilayah
+                            Kepala
                         </label>
                     </div>
                 </div>
