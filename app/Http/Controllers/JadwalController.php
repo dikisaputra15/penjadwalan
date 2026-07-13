@@ -26,13 +26,14 @@ class JadwalController extends Controller
      public function index(Request $request)
     {
       $query = DB::table('jadwals')
-            ->join('users', 'users.id', '=', 'jadwals.pegawai_id')
+            ->join('pegawais', 'pegawais.id', '=', 'jadwals.pegawai_id')
+            ->join('users', 'users.id', '=', 'pegawais.user_id')
             ->join('kegiatans', 'kegiatans.id', '=', 'jadwals.kegiatan_id')
             ->select('jadwals.*', 'users.name as nama', 'kegiatans.nama_kegiatan')
             ->orderBy('jadwals.id', 'desc');
 
         if (auth()->user()->roles !== 'admin') {
-            $query->where('jadwals.pegawai_id', auth()->id());
+            $query->where('pegawais.user_id', auth()->id());
         }
 
         $jadwals = $query->get();
@@ -48,8 +49,13 @@ class JadwalController extends Controller
 
     public function store(Request $request)
     {
+        $pegawai = \App\Models\Pegawai::where('user_id', $request->user_id)->first();
+        if (!$pegawai) {
+            return redirect()->route('pegawai.create')->with('alert-danger', 'Error: Pegawai untuk user ini belum terdaftar. Silakan buat data Pegawai terlebih dahulu.');
+        }
+
         Jadwal::create([
-            'pegawai_id' => $request->user_id,
+            'pegawai_id' => $pegawai->id,
             'kegiatan_id' => $request->kegiatan_id,
             'tanggal' => $request->tanggal,
             'lokasi' => $request->lokasi,
@@ -75,8 +81,13 @@ class JadwalController extends Controller
 
     public function update(Request $request, $id)
     {
+        $pegawai = \App\Models\Pegawai::where('user_id', $request->user_id)->first();
+        if (!$pegawai) {
+            return redirect()->route('pegawai.create')->with('alert-danger', 'Error: Pegawai untuk user ini belum terdaftar. Silakan buat data Pegawai terlebih dahulu.');
+        }
+
         DB::table('jadwals')->where('id',$id)->update([
-                'pegawai_id' => $request->user_id,
+                'pegawai_id' => $pegawai->id,
                 'kegiatan_id' => $request->kegiatan_id,
                 'tanggal' => $request->tanggal,
                 'lokasi' => $request->lokasi,
