@@ -26,18 +26,13 @@ class JadwalController extends Controller
      public function index(Request $request)
     {
       $query = DB::table('jadwals')
-            ->join('pegawais', 'pegawais.id', '=', 'jadwals.pegawai_id')
+            ->join('users', 'users.id', '=', 'jadwals.pegawai_id')
             ->join('kegiatans', 'kegiatans.id', '=', 'jadwals.kegiatan_id')
-            ->select('jadwals.*', 'pegawais.nama', 'kegiatans.nama_kegiatan')
+            ->select('jadwals.*', 'users.name as nama', 'kegiatans.nama_kegiatan')
             ->orderBy('jadwals.id', 'desc');
 
-        if (auth()->user()->roles === 'pegawai') {
-            $pegawai = auth()->user()->pegawai;
-            if ($pegawai) {
-                $query->where('jadwals.pegawai_id', $pegawai->id);
-            } else {
-                $query->whereRaw('1 = 0');
-            }
+        if (auth()->user()->roles !== 'admin') {
+            $query->where('jadwals.pegawai_id', auth()->id());
         }
 
         $jadwals = $query->get();
@@ -46,15 +41,15 @@ class JadwalController extends Controller
 
       public function create()
     {
-        $pegawais = DB::table('pegawais')->get();
+        $users = DB::table('users')->where('roles', 'pegawai')->get();
         $kegiatans = DB::table('kegiatans')->get();
-        return view('pages.jadwal.create', compact('pegawais','kegiatans'));
+        return view('pages.jadwal.create', compact('users','kegiatans'));
     }
 
     public function store(Request $request)
     {
         Jadwal::create([
-            'pegawai_id' => $request->pegawai_id,
+            'pegawai_id' => $request->user_id,
             'kegiatan_id' => $request->kegiatan_id,
             'tanggal' => $request->tanggal,
             'lokasi' => $request->lokasi,
@@ -74,14 +69,14 @@ class JadwalController extends Controller
     {
         $jadwal = \App\Models\Jadwal::findOrFail($id);
         $kegiatans = DB::table('kegiatans')->get();
-        $pegawais = DB::table('pegawais')->get();
-        return view('pages.jadwal.edit', compact('kegiatans','pegawais','jadwal'));
+        $users = DB::table('users')->where('roles', 'pegawai')->get();
+        return view('pages.jadwal.edit', compact('kegiatans','users','jadwal'));
     }
 
     public function update(Request $request, $id)
     {
         DB::table('jadwals')->where('id',$id)->update([
-                'pegawai_id' => $request->pegawai_id,
+                'pegawai_id' => $request->user_id,
                 'kegiatan_id' => $request->kegiatan_id,
                 'tanggal' => $request->tanggal,
                 'lokasi' => $request->lokasi,

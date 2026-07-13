@@ -16,18 +16,18 @@
             <div class="card-body">
                 <div class="form-group">
                     <label>Nama Pegawai</label>
-                            <select class="form-control" name="pegawai_id">
+                            <select class="form-control" name="user_id">
                                     <?php
-                                        foreach ($pegawais as $pegawai) {
+                                        foreach ($users as $user) {
 
-                                        if ($pegawai->id==$jadwal->pegawai_id) {
+                                        if ($user->id==$jadwal->pegawai_id) {
                                             $select="selected";
                                         }else{
                                             $select="";
                                         }
 
                                      ?>
-                                        <option <?php echo $select; ?> value="<?php echo $pegawai->id;?>"><?php echo $pegawai->nama; ?></option>
+                                        <option <?php echo $select; ?> value="<?php echo $user->id;?>"><?php echo $user->name; ?></option>
 
                                      <?php } ?>
 

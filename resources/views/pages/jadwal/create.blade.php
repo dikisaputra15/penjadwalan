@@ -15,10 +15,10 @@
             <div class="card-body">
                 <div class="form-group">
                     <label>Nama Pegawai</label>
-                    <select class="form-control" name="pegawai_id">
+                    <select class="form-control" name="user_id">
                             <option>-Pilih Pegawai-</option>
-                        @foreach ($pegawais as $pegawai)
-                            <option value="{{$pegawai->id}}">{{$pegawai->nama}}</option>
+                        @foreach ($users as $user)
+                            <option value="{{$user->id}}">{{$user->name}}</option>
                         @endforeach
                     </select>
                 </div>
